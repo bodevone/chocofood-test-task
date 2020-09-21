@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=99eel8zfi9ytwl)9*nk7q#rkmnyef1okybq=#17mpq5n7w2h(9
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
