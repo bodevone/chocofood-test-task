@@ -5,14 +5,14 @@ from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, r2_score, accuracy_score
 from helpers import clean_review
 
 MAX_WORDS = 10000
 
 def model():
     logging.info('Reading Data')
-    data = pd.read_csv('food-review202009141259.csv', skipinitialspace=True)
+    data = pd.read_csv('data/food-review202009141259.csv', skipinitialspace=True)
     reviews = data['text']
     ratings = data['rating']
 
@@ -23,7 +23,8 @@ def model():
     tokenizer = Tokenizer(num_words=MAX_WORDS)
     tokenizer.fit_on_texts(reviews)
 
-    with open('tokenizer.pickle', 'wb') as file:
+    logging.info('Saving tokenizer')
+    with open('data/tokenizer.pickle', 'wb') as file:
         pickle.dump(tokenizer, file, protocol=pickle.HIGHEST_PROTOCOL)
 
     reviews_vec = tokenizer.texts_to_sequences(reviews)
@@ -41,14 +42,11 @@ def model():
     model = LinearRegression()
     model.fit(X_train, y_train)
 
-    y_pred_train = model.predict(X_train)
     y_pred_test = model.predict(X_test)
-    print(mean_squared_error(y_train, y_pred_train))
     print(mean_squared_error(y_test, y_pred_test))
 
-
     logging.info('Saving model')
-    with open('model.pickle', 'wb') as file:
+    with open('data/model.pickle', 'wb') as file:
         pickle.dump(model, file, protocol=pickle.HIGHEST_PROTOCOL)
 
 if __name__ == '__main__':
