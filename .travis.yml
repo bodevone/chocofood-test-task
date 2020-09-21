@@ -12,7 +12,7 @@ before_install:
     - sudo mv docker-compose /usr/local/bin
     - export WEB_IMAGE=$DOCKER_USER/chocofood_test_web:$TRAVIS_BUILD_NUMBER
 script:
-    - docker-compose -f docker-compose.prod.yml up --build 
+    - docker-compose -f docker-compose.prod.yml build 
 after_success:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - docker push $WEB_IMAGE
