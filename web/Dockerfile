@@ -6,7 +6,7 @@ WORKDIR /app
 RUN apt-get update -y
 RUN apt-get install -y \ 
     python3-pip python3-dev \
-    build-essential libpq-dev
+    build-essential libpq-dev netcat
 
 COPY requirements.txt /app/
 RUN pip3 install -r requirements.txt

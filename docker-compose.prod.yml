@@ -5,10 +5,12 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile.prod
+    image: '${WEB_IMAGE}'
     command: gunicorn server.wsgi:application --bind 0.0.0.0:8000
     ports:
       - 8000:8000
     environment:
+      - WEB_IMAGE=bodevone/chocofood_test_web:1.0
       - DEBUG=0
       - SECRET_KEY=99eel8zfi9ytwl)9*nk7q#rkmnyef1okybq=#17mpq5n7w2h(9
       - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
