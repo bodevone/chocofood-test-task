@@ -1,13 +1,12 @@
 import pickle
 from keras.preprocessing.sequence import pad_sequences
 from helpers import clean_review
+from model import MAX_WORDS
 
-MAX_WORDS = 10000
-
-with open('tokenizer.pickle', 'rb') as file:
+with open('data/tokenizer.pickle', 'rb') as file:
     tokenizer = pickle.load(file)
 
-with open('model.pickle', 'rb') as file:
+with open('data/model.pickle', 'rb') as file:
     model = pickle.load(file)
 
 def predict(review):
